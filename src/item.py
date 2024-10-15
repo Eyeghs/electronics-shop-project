@@ -1,3 +1,6 @@
+import csv
+import sys
+sys.path.insert(0, '..')
 class Item:
     """
     Класс для представления товара в магазине.
@@ -5,7 +8,7 @@ class Item:
     pay_rate = 1.0
     all = []
 
-    def __init__(self, name: str, price: float, quantity: int) -> None:
+    def __init__(self, name, price, quantity):
         """
         Создание экземпляра класса item.
 
@@ -13,7 +16,48 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        pass
+        self.__name = name
+        self.price = price
+        self.quantity = quantity
+        Item.all.append(self)
+        
+    def __str__(self):
+        return f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        
+    @property
+    def name(self) -> str:
+        """
+        :return: Название конкретного товара.
+        """
+        return self.__name
+    
+    @name.setter
+    def name(self, name):
+        """
+        Изменяет название конкретного товара.
+
+        :param value: Новое название.
+        """
+        if len(name) > 10:
+            self.__name = name[0:10]
+        else:
+            self.__name = name
+            
+    @classmethod
+    def instantiate_from_csv(cls, filename):
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                Item(row['name'], row['price'], row['quantity'])
+                
+    
+    @staticmethod
+    def string_to_number(string_number):
+        float_number = float(string_number)
+        int_number = int(float_number)
+        return int_number
+    
+
 
     def calculate_total_price(self) -> float:
         """
@@ -21,10 +65,11 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        pass
+        return self.price * self.quantity
 
     def apply_discount(self) -> None:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        pass
+        self.price *= self.pay_rate
+        return self.price
