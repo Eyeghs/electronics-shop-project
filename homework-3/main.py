@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '..')
 from src.item import Item
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '..')
 from src.item import Item
 from src.phone import Phone
 
@@ -10,6 +12,9 @@ if __name__ == '__main__':
     assert phone1.number_of_sim == 2
 
     item1 = Item("Смартфон", 10000, 20)
+    print('---------------')
+    print(item1+phone1)
+    print('---------------')
     assert item1 + phone1 == 25
     assert phone1 + phone1 == 10
 

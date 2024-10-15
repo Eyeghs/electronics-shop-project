@@ -21,8 +21,16 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
         
+    def __repr__(self):
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
     def __str__(self):
-        return f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        return f"{self.name}"
+    
+    # def __add__(self, other):
+    #     if not isinstance(other, Item):
+    #         raise TypeError("Объекты класса Item можно складывать только с другими объектами класса Item")
+    #     return Item(self.name, self.price, self.quantity + other.quantity)
+            
         
     @property
     def name(self) -> str:
