@@ -1,5 +1,5 @@
 import sys, pytest
-sys.path.insert(0, '../homework-1')
+sys.path.insert(0, '..')
 from src.phone import Phone
 
 @pytest.fixture
