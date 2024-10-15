@@ -26,10 +26,11 @@ class Item:
     def __str__(self):
         return f"{self.name}"
     
-    # def __add__(self, other):
-    #     if not isinstance(other, Item):
-    #         raise TypeError("Объекты класса Item можно складывать только с другими объектами класса Item")
-    #     return Item(self.name, self.price, self.quantity + other.quantity)
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise TypeError
             
         
     @property
@@ -38,6 +39,7 @@ class Item:
         :return: Название конкретного товара.
         """
         return self.__name
+    
     
     @name.setter
     def name(self, name):

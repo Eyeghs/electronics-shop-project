@@ -1,6 +1,7 @@
 import sys, pytest
 sys.path.insert(0, '../homework-1')
 from src.item import Item
+from src.phone import Phone
 
 @pytest.fixture
 def item1():
@@ -40,6 +41,11 @@ def test_string_to_number():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('5.5') == 5
+    
+def test_add(item1):
+    phone1 = Phone("iPhone 14", 120_000, 5, 2)
+    assert item1 + phone1 == 7
+    
     
 if __name__ == '__main__':
     pytest.main(['--cov=src', '--cov-report=term-missing', 'test_item.py'])
