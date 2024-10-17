@@ -1,6 +1,7 @@
 import csv
 import sys
 sys.path.insert(0, '..')
+from src.Errors import InstantiateCSVError
 class Item:
     """
     Класс для представления товара в магазине.
@@ -55,10 +56,16 @@ class Item:
             
     @classmethod
     def instantiate_from_csv(cls, filename):
-        with open(filename, 'r', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                Item(row['name'], row['price'], row['quantity'])
+        if filename[-9:] != 'items.csv':
+            raise FileNotFoundError('_Отсутствует файл items.csv_')
+        else:
+            with open(filename, 'r', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                        raise InstantiateCSVError('_Файл item.csv поврежден_')
+                    else:
+                        Item(row['name'], row['price'], row['quantity'])
                 
     
     @staticmethod

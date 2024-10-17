@@ -11,6 +11,8 @@ def test_instantiate_from_csv():
     Item.instantiate_from_csv('../src/items.csv')
     print(Item.all)
     assert len(Item.all) == 5
+    with pytest.raises(FileNotFoundError, match="_Отсутствует файл items.csv_"):
+        Item.instantiate_from_csv('../src/item.csv')
 
 def test_item_init(item1):
     
@@ -45,6 +47,7 @@ def test_string_to_number():
 def test_add(item1):
     phone1 = Phone("iPhone 14", 120_000, 5, 2)
     assert item1 + phone1 == 7
+    
     
     
 if __name__ == '__main__':
